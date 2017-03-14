@@ -1,9 +1,13 @@
-sudo: false
+sudo: required
 language: cpp
 
 env:
   global:
     - IsTravis=1
+
+os:
+  - linux
+  - osx
 
 compiler:
   - g++

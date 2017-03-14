@@ -7,6 +7,7 @@ else
 endif
 
 CFlags=-c -Wall -O3 -pedantic -MMD -std=c++11 -Werror
+CFlags=-c -Wall -O3 -pedantic -MMD -std=c++0x -Werror
 GSLFlags=-lgsl -lgslcblas
 Sources=$(wildcard src/*.cpp)
 IncludeDir=-I./include

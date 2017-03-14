@@ -1,6 +1,8 @@
 #ifndef Figures_H
 #define Figures_H
 
+#include <string>
+
 // likelihood scan over f_gal
 void Likelihood();
 

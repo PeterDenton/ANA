@@ -66,7 +66,10 @@ void calc_L_gals()
 
 void read_L_gals()
 {
-	std::ifstream data("data/L_gals.txt");
+	std::ifstream data;
+	if (test)	data.open("data/test/L_gals.txt");
+	else		data.open("data/L_gals.txt");
+
 	std::string line;
 	std::stringstream ss;
 

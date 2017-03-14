@@ -26,5 +26,5 @@ script:
   - make test
 
 after_success:
-  - sudo pip install cpp-coveralls
+  - sudo -H pip install cpp-coveralls
   - coveralls -b .

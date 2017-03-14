@@ -14,17 +14,6 @@ coord2D::coord2D(coord_sph coord)
 	phi = coord.phi;
 }
 
-coord2D random_coord2D()
-{
-	double x, theta, phi;
-
-	phi = 2 * M_PI * rng.rand();
-	x = rng.rand(-1, 1);
-	theta = acos(x);
-
-	return coord2D(theta, phi);
-}
-
 coord_cart sun_to_gal(coord_cart coord)
 {
 	coord.x -= R_0;
@@ -118,44 +107,6 @@ coord2D eq_to_gal(coord2D coord)
 	coord_c.y = v_gal[1];
 	coord_c.z = v_gal[2];
 	return coord2D(cart_to_sph(coord_c));
-}
-
-// sigtheta in degrees (from IC)
-// blah TODO change from gaussian to von mises
-coord2D smear(coord2D coord, double sigtheta)
-{
-	// see Berlind's makeCRmock.c
-	double stheta1, ctheta1, rangle, sr, cr, psi, cpsi, ctheta2, theta2, stheta2, cDphi, Dphi, phi2;
-
-	stheta1 = sin(coord.theta);
-	ctheta1 = cos(coord.theta);
-
-	rangle = (M_PI / 180) * rng.gaussian(0, sigtheta);
-	if (rangle < 0)
-		rangle *= -1;
-
-	sr = sin(rangle);
-	cr = cos(rangle);
-
-	psi = 2 * M_PI * rng.rand();
-	cpsi = cos(psi);
-
-	ctheta2 = ctheta1 * cr + stheta1 * sr * cpsi;
-	theta2 = acos(ctheta2);
-	stheta2 = sin(theta2);
-
-	cDphi = (cr - ctheta1 * ctheta2) / (stheta1 * stheta2);
-	cDphi = (cDphi > 1) ? 1 : cDphi;
-	cDphi = (cDphi < -1) ? -1 : cDphi;
-	if (psi > 0)
-		Dphi = acos(cDphi);
-	else
-		Dphi = 0;
-	if (psi < M_PI)
-		phi2 = coord.phi + Dphi;
-	else
-		phi2 = coord.phi - Dphi;
-	return coord2D(theta2, phi2);
 }
 
 double cos_theta(coord2D coord1, coord2D coord2)

@@ -51,8 +51,6 @@ class coord_cart
 
 };
 
-coord2D random_coord2D();
-
 coord_cart sun_to_gal(coord_cart coord); // converts from the sun's reference frame to the galaxy's
 coord_cart gal_to_sun(coord_cart coord);
 
@@ -65,10 +63,6 @@ coord_sph gal_to_sun(coord_sph coord);
 // converts between galactic and equatorial (J2000) coordinates
 coord2D gal_to_eq(coord2D coord);
 coord2D eq_to_gal(coord2D coord);
-
-// returns a coordinate that is smeared from the original by sigtheta
-// sigtheta in degrees (from IC)
-coord2D smear(coord2D coord, double sigtheta);
 
 // costheta of angle between
 double cos_theta(coord2D coord1, coord2D coord2);

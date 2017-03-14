@@ -1,5 +1,8 @@
 A&#957;A: Astrophysical Neutrino Anisotropy
 =
+| master | version | coverage |
+|:------:|:-------:|:--------:|
+|[![Build Status](https://travis-ci.org/PeterDenton/AvA.svg?branch=master)](https://travis-ci.org/PeterDenton/AvA)|[![GitHub Version](https://badge.fury.io/gh/PeterDenton%2FAvA.svg)](http://badge.fury.io/gh/PeterDenton%2FAvA)|[![Coverage Status](https://coveralls.io/repos/github/PeterDenton/AvA/badge.svg?branch=master)](https://coveralls.io/github/PeterDenton/AvA?branch=master)
 
 ## Overview
 

@@ -1,0 +1,21 @@
+language: cpp
+
+env:
+  global:
+    - IsTravis=1
+
+os:
+  - linux
+  - osx
+
+compiler:
+  - g++
+  - clang++
+
+script:
+  - make
+  - make test
+
+after_success:
+  - sudo pip install cpp-coveralls
+  - coveralls -b .

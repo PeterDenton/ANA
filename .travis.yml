@@ -1,20 +1,18 @@
+sudo: required
 language: cpp
 
 env:
   global:
     - IsTravis=1
 
-os:
-  - linux
-  - osx
+services:
+  - docker
 
-before_install:
-  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-  - sudo apt-get update -q
-  - sudo apt-get install g++-4.8 -y
+install:
+  - docker pull ubuntu:16.04
 
 compiler:
-  - g++-4.8
+  - g++
   - clang++
 
 addons:
@@ -23,7 +21,6 @@ addons:
     - libgsl-dev
 
 script:
-  - make
   - make test
 
 after_success:

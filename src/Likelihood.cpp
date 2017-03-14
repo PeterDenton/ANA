@@ -38,7 +38,7 @@ void calc_L_gals()
 
 	Progress_Bar *pbar = new Progress_Bar();
 	pbar->update(0);
-	for (uint i = 0; i < events.size(); i++)
+	for (unsigned int i = 0; i < events.size(); i++)
 	{
 		if (events[i].E > 900 and HE_Cut)
 			data << i << " " << events[i].id << " " << 0 << std::endl;
@@ -103,7 +103,7 @@ double logL(double f_gal)
 	double logL;
 
 	logL = 0;
-	for (uint i = 0; i < events.size(); i++)
+	for (unsigned int i = 0; i < events.size(); i++)
 	{
 		logL += log(L(events[i], f_gal));
 	} // i, events

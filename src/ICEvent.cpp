@@ -35,7 +35,7 @@ std::vector<ICEvent> read_IC(int n, std::string fname)
 	std::string shower_track;
 	bool is_shower;
 
-	std::ifstream event_stream (fname);
+	std::ifstream event_stream(fname);
 	std::string line;
 	std::stringstream ss;
 

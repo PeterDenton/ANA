@@ -78,7 +78,7 @@ void Likelihood_Table()
 
 	data << hfgal << std::endl;
 	data << std::setprecision(2);
-	for (uint i = 0; i < events.size(); i++)
+	for (unsigned int i = 0; i < events.size(); i++)
 	{
 		Lbkg = L_bkg(events[i]);
 		Lastro = L_astro(events[i]);
@@ -123,7 +123,7 @@ void SkyMap()
 
 	Progress_Bar *pbar = new Progress_Bar();
 	pbar->update(0);
-	for (uint i = 0; i < events.size(); i++)
+	for (unsigned int i = 0; i < events.size(); i++)
 	{
 		coord_gal = eq_to_gal(events[i].coord_eq);
 		for (int j = 0; j < N_Repeat; j++)

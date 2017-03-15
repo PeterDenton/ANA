@@ -4,9 +4,6 @@
 #include "Likelihood.h"
 #include "Figures.h"
 #include "Progress.h"
-#include "Test.h"
-
-bool test = false; // run the real thing
 
 int main()
 {

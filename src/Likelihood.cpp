@@ -15,7 +15,6 @@
 #include "vMF.h"
 #include "Backgrounds.h"
 #include "Progress.h"
-#include "Test.h"
 
 double L_gals[54];
 
@@ -23,9 +22,7 @@ void calc_L_gals()
 {
 	std::cout << "Calculating L_gals..." << std::endl;
 
-	std::ofstream data;
-	if (test)	data.open("data/test/L_gals.txt");
-	else		data.open("data/L_gals.txt");
+	std::ofstream data("data/L_gals.txt");
 
 	int N_Repeat;
 	coord2D coord_gal_event, coord_gal_MW;
@@ -33,8 +30,7 @@ void calc_L_gals()
 	bool HE_Cut;
 
 	HE_Cut = false;
-	if (test)	N_Repeat = 1e1;
-	else		N_Repeat = 1e6;
+	N_Repeat = 1e6;
 
 	Progress_Bar *pbar = new Progress_Bar();
 	pbar->update(0);
@@ -66,9 +62,7 @@ void calc_L_gals()
 
 void read_L_gals()
 {
-	std::ifstream data;
-	if (test)	data.open("data/test/L_gals.txt");
-	else		data.open("data/L_gals.txt");
+	std::ifstream data("data/L_gals.txt");
 
 	std::string line;
 	std::stringstream ss;

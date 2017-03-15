@@ -23,10 +23,5 @@ before_install:
     fi
 
 script:
-  - make test
+  - make
 
-after_success:
-  - if [ $TRAVIS_OS_NAME == "linux" ]; then
-      pip install --user codecov;
-      codecov;
-    fi

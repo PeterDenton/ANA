@@ -1,8 +1,8 @@
 ANA: Astrophysical Neutrino Anisotropy
 =
-| master | version | coverage |
-|:------:|:-------:|:--------:|
-|[![Build Status](https://travis-ci.org/PeterDenton/ANA.svg?branch=master)](https://travis-ci.org/PeterDenton/ANA)|[![GitHub Version](https://badge.fury.io/gh/PeterDenton%2FANA.svg)](http://badge.fury.io/gh/PeterDenton%2FANA)|[![Coverage Status](https://coveralls.io/repos/github/PeterDenton/ANA/badge.svg?branch=master)](https://coveralls.io/github/PeterDenton/ANA?branch=master)
+| master | version | 
+|:------:|:-------:|
+|[![Build Status](https://travis-ci.org/PeterDenton/ANA.svg?branch=master)](https://travis-ci.org/PeterDenton/ANA)|[![GitHub Version](https://badge.fury.io/gh/PeterDenton%2FANA.svg)](http://badge.fury.io/gh/PeterDenton%2FANA)|
 
 ## Overview
 

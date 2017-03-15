@@ -1,3 +1,6 @@
 main
 Test
 data
+*.d
+*.o
+*.eps

@@ -21,8 +21,8 @@ int main()
 	// generate the data for figures and tables
 	Likelihood();
 	Likelihood_Table();
-	SkyMap();
-	MW_Visualization();
+//	SkyMap();
+//	MW_Visualization();
 	vMF_test();
 
 	return 0;

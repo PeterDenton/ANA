@@ -17,9 +17,8 @@ for i in xrange(len(data[1])):
 
 # Print out statistics
 print "hat_f_gal =", hat_f_gal
-if hat_f_gal == data[0][-1]: print "\tWarning: Best fit is at last point."
 
-chisq = InterpolatedUnivariateSpline(data[0, :-1], data[1, :-1]) # last bin has a nan
+chisq = InterpolatedUnivariateSpline(data[0, :-1], data[1, :-1]) # last bin often has a nan
 def CL(f_gal, sig, hat_f_gal, left):
 	if (left and f_gal > hat_f_gal) or (not left and f_gal < hat_f_gal):
 		return 1
@@ -28,9 +27,10 @@ def CL(f_gal, sig, hat_f_gal, left):
 
 CLs = [1, 2.71, 3.84, 4, 9, 16, 25]
 CL_names = [r"$1\sigma$", r"$90\%$", r"$95\%$", r"$2\sigma$", r"$3\sigma$", r"$4\sigma$", r"$5\sigma$"]
+xtol = 1e-5
 for i in xrange(len(CLs)):
-	f_gal_l = fsolve(CL, x0 = 0.0, args = (CLs[i], hat_f_gal, True), xtol = 1e-5)[0]
-	f_gal_r = fsolve(CL, x0 = 0.9, args = (CLs[i], hat_f_gal, False), xtol = 1e-5)[0]
+	f_gal_l = fsolve(CL, x0 = 0.0, args = (CLs[i], hat_f_gal, True), xtol = xtol)[0]
+	f_gal_r = fsolve(CL, x0 = 0.9, args = (CLs[i], hat_f_gal, False), xtol = xtol)[0]
 	if chisq(0) > CLs[i]:
 		print "%s & $[%.2g,%.2g]$\\\\" % (CL_names[i], f_gal_l, f_gal_r)
 	else:

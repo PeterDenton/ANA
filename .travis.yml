@@ -27,6 +27,6 @@ script:
 
 after_success:
   - if [ $TRAVIS_OS_NAME == "linux" ]; then
-      sudo -H pip install cpp-coveralls;
-      coveralls -b .;
+      pip install codecov;
+      codecov;
     fi

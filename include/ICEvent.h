@@ -11,6 +11,10 @@ extern const double ICEmin;
 class ICEvent
 {
 	public:
+		ICEvent();
+		// dec_, RA_ in degrees
+		ICEvent(int id_, double Edep_, double Em_, double Ep_, double time_, double dec_, double RA_, double alpha50_, bool is_shower_);
+
 		int id;
 		double Edep, Em, Ep; // TeV, E (-Em, +Ep)
 		double E; // same for showers, adjusted for tracks
@@ -20,11 +24,6 @@ class ICEvent
 		double sigma_direction; // corresponds to vmf
 		double kappa; // corresponds to vmf
 		bool is_shower; // true if is shower, false if is track
-
-		ICEvent() {};
-
-		// dec_, RA_ in degrees
-		ICEvent(int id_, double Edep_, double Em_, double Ep_, double time_, double dec_, double RA_, double alpha50_, bool is_shower_);
 };
 
 // for tracks only

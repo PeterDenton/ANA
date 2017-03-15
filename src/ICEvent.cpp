@@ -11,6 +11,8 @@
 
 const double ICEmin = 60;
 
+ICEvent::ICEvent() {}
+
 ICEvent::ICEvent(int id_, double Edep_, double Em_, double Ep_, double time_, double dec_, double RA_, double alpha50_, bool is_shower_)
 {
 	id = id_;

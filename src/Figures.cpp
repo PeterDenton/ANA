@@ -12,19 +12,7 @@
 #include "Progress.h"
 #include "vMF.h"
 #include "MWDisks.h"
-/*
-int main()
-{
-	// Paper figures
-	Likelihood();
-	Likelihood_Table();
-	SkyMap();
-	MW_Visualization();
-	vMF_test();
 
-	return 0;
-}
-*/
 void Likelihood()
 {
 	std::ofstream data("data/Likelihood.txt");

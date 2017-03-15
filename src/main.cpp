@@ -11,16 +11,19 @@ int main()
 	rng.seed(1888);
 //	Progress_Bar_visible = false;
 
-	calc_L_gals();
-	read_L_gals();
+	// calculate and write to file, and then read in the galactic likelihood part of the integral
+	calc_L_gals(); // calculate and write to file, does not need to be rerun
+	read_L_gals(); // reads in from file, needs to be rerun for any likelihood calculation
 
+	// the best fit point
 	std::cout << "hat_f_gal = " << hat_f_gal() << std::endl;
 
+	// generate the data for figures and tables
 	Likelihood();
 	Likelihood_Table();
-//	SkyMap();
-//	MW_Visualization();
-//	vMF_test();
+	SkyMap();
+	MW_Visualization();
+	vMF_test();
 
 	return 0;
 }

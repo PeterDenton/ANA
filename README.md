@@ -5,34 +5,27 @@ ANA: Astrophysical Neutrino Anisotropy
 |[![Build Status](https://travis-ci.org/PeterDenton/ANA.svg?branch=master)](https://travis-ci.org/PeterDenton/ANA)|[![GitHub Version](https://badge.fury.io/gh/PeterDenton%2FANA.svg)](http://badge.fury.io/gh/PeterDenton%2FANA)|
 
 ## Overview
+This code has resulted in the publication [arXiv:17xx.xxxxx](https://arxiv.org/abs/17xx.xxxxx). This code calculates the likelihood function for a model comprised of two components to the astrophysical neutrino flux detected by IceCube. The first component is extragalactic. Since point sources have not been found and there is increasing evidence that one source catalog cannot describe the entire data set, we model the extragalactic flux as isotropic. The second component is galactic. A variety of catalogs of interest exist here as well. We take the galactic contribution to be proportional to the matter density of the universe.
+
+The likelihood function has one free parameter f<sub>gal</sub> that is the fraction of the astrophysical flux that is galactic. The code finds the best fit value of f<sub>gal</sub> and scans over 0&lt;f<sub>gal</sub>&lt;1.
 
 ## Installing
-This code has been tested on ubuntu and os x with g++ and clang++.
-
-This code depends on gsl.
-To install gsl on ubuntu 16.04 type:
-```sh
-sudo apt-get update
-sudo apt-get install libgsl-dev
-```
-To install gsl on ubuntu 12.04 or 14.04 type:
-```sh
-sudo apt-get update
-sudo apt-get install libgsl0-dev
-```
-To install gsl on os x type:
-```sh
-brew update
-brew install gsl
-```
-
+See the [dependency guide](DEPENDENCY.md) and the [installation guide](INSTALL.md).
 
 ## About the code
+The IceCube events are read in and managed in [*src/ICEvent.cpp*](src/ICEvent.cpp). The likelihood function is described in [*src/Backgrounds.cpp*](src/Backgrounds.cpp) and [*src/Likelihood.cpp*](src/Likelihood.cpp). The von Mises-Fisher distribution is handled in [*vMF.cpp*](src/vMF.cpp). An implementation of the Metropolis-Hasting Markov Chain Monte Carlo code to generate points distributed in the galactic plane is in [*src/MWDisks.cpp*](src/MWDisks.cpp). Finally, [*src/Figures.cpp*](src/Figures.cpp) generates data files that can then be plotted by the scripts in the [*py*](py) directory and [*src/main.cpp*](src/main.cpp) indicates what should be run.
 
 ## Further details
+1. Calculating the integral in equation 4.6 in the paper is the main time consuming portion of the code, other than generating the sky map and the galactic plane visualization. With this in mind, the code writes the calculation to file, *data/L_gals.txt* with `calc_L_gals()` and the result is read in to a global variable with `read_in_gals()`.
+
+1. The high energy cut on the galactic component mentioned in the paper can be turned on with the bool flag in `calc_L_gals()`.
+
+1. The confidence intervals are calculated in [*py/Likelihood.py*](py/Likelihood.py). Plotting can be turned off by uncommenting `exit()` halfway through that script.
+
+1. To turn off the progress bar on the slower functions, uncomment the `Progress_Bar_visible = false;` line in [*src/main.cpp*](src/main.cpp).
 
 ## Support
 If you have questions or encounter any problems when running *ANA*, please use github's [issue tracker](https://github.com/PeterDenton/ANA/issues).
 
 This code is free to use, copy, distribute, and modify.
-If you use this code or any modification of this code, we request that you reference both this code and the relevant publication.
+If you use this code or any modification of this code, we request that you reference both this code and the paper [arXiv:17xx.xxxxx](https://arxiv.org/abs/17xx.xxxxx).

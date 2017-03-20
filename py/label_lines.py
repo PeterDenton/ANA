@@ -1,3 +1,8 @@
+"""
+This code is free to use, copy, distribute, and modify.
+If you use this code or any modification of this code, we request that you reference both this code zenodo.org/record/x and the paper https://arxiv.org/abs/17xx.xxxxx.
+"""
+
 # from this post:
 # http://stackoverflow.com/questions/16992038/inline-labels-in-matplotlib
 # usage:

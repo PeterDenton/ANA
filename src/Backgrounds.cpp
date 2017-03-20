@@ -1,10 +1,14 @@
-#include <cmath>
+/*
+This code is free to use, copy, distribute, and modify.
+If you use this code or any modification of this code, we request that you reference both this code zenodo.org/record/x and the paper https://arxiv.org/abs/17xx.xxxxx.
+*/
 
-#include <iostream>
+#include <cmath>
 
 #include "Backgrounds.h"
 #include "ICEvent.h"
 
+// spectral indices
 const double Gamma_atmospherics = 3.7;
 const double Gamma_astro = 2.58;
 
@@ -25,6 +29,7 @@ double N_bkg(ICEvent event)
 	sin_dec = sin(M_PI / 2 - event.coord_eq.theta);
 	scale = 1347. / 988; // converts three years to four
 
+	// digitized from 1405.5303, supplementary figure 5, E_dep>60 TeV
 	if (sin_dec < -0.8)			{phi_mu_3 = 0;		phi_atm_3 = 0;}
 	else if (sin_dec < -0.6)	{phi_mu_3 = 0.039;	phi_atm_3 = 0;}
 	else if (sin_dec < -0.4)	{phi_mu_3 = 0.057;	phi_atm_3 = 0.057;}
@@ -46,6 +51,7 @@ double N_astro(ICEvent event)
 	sin_dec = sin(M_PI / 2 - event.coord_eq.theta);
 	scale = 1347. / 988; // converts three years to four
 
+	// digitized from 1405.5303, supplementary figure 5, E_dep>60 TeV
 	if (sin_dec < -0.8)			{phi_astro_3 = 2.828;}
 	else if (sin_dec < -0.6)	{phi_astro_3 = 2.605;}
 	else if (sin_dec < -0.4)	{phi_astro_3 = 2.727;}

@@ -1,8 +1,11 @@
+/*
+This code is free to use, copy, distribute, and modify.
+If you use this code or any modification of this code, we request that you reference both this code zenodo.org/record/x and the paper https://arxiv.org/abs/17xx.xxxxx.
+*/
+
 #include <math.h>
 #include <cmath>
 #include <assert.h>
-
-#include <iostream>
 
 #include "MWDisks.h"
 #include "Coordinates.h"
@@ -16,11 +19,13 @@ MCMC_point::MCMC_point(double x, double y, double z, int section)
 	Calc_Phi(this);
 }
 
+// the MCMC points
 MCMC_point MCMC_bulge(0, 0, 0, 0);
 MCMC_point MCMC_thin(0, 0, 0, 1);
 MCMC_point MCMC_thick(0, 0, 0, 2);
 
-const double d_min = 5; // 5pc minimum distance cutoff
+// 5pc minimum distance cutoff
+const double d_min = 5;
 
 // from 1102.4340
 // See best fit in table 2
@@ -169,7 +174,7 @@ coord_sph spherical(MCMC_point p)
 
 coord_sph MW_sph(bool rsq)
 {
-	// determine if from bulge, thin disk, or thick disk
+	// determine if from bulge, thin disk, or thick disk based on the total mass in each region
 	double M_rand;
 	coord_sph coord_s;
 

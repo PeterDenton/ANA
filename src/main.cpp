@@ -1,6 +1,10 @@
+/*
+This code is free to use, copy, distribute, and modify.
+If you use this code or any modification of this code, we request that you reference both this code zenodo.org/record/x and the paper https://arxiv.org/abs/17xx.xxxxx.
+*/
+
 #include <iostream>
 
-#include "rng.h"
 #include "Likelihood.h"
 #include "Figures.h"
 #include "Progress.h"
@@ -8,7 +12,6 @@
 int main()
 {
 	// init
-	rng.seed(1888);
 //	Progress_Bar_visible = false;
 
 	// calculate and write to file, and then read in the galactic likelihood part of the integral

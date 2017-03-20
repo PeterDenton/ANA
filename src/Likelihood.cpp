@@ -1,3 +1,8 @@
+/*
+This code is free to use, copy, distribute, and modify.
+If you use this code or any modification of this code, we request that you reference both this code zenodo.org/record/x and the paper https://arxiv.org/abs/17xx.xxxxx.
+*/
+
 #include <gsl/gsl_min.h>
 #include <gsl/gsl_errno.h>
 
@@ -29,7 +34,7 @@ void calc_L_gals()
 	double L;
 	bool HE_Cut;
 
-	HE_Cut = false;
+	HE_Cut = false; // a cut on galactic energy at 900 TeV
 	N_Repeat = 1e6;
 
 	Progress_Bar *pbar = new Progress_Bar();
@@ -114,6 +119,7 @@ double minus_logL(double f_gal, void *params)
 	return -logL(f_gal);
 }
 
+// finds the best fit f_gal
 double hat_f_gal()
 {
 	int status;

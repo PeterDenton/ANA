@@ -1,8 +1,12 @@
+/*
+This code is free to use, copy, distribute, and modify.
+If you use this code or any modification of this code, we request that you reference both this code zenodo.org/record/x and the paper https://arxiv.org/abs/17xx.xxxxx.
+*/
+
 #include <fstream>
 #include <iomanip>
 #include <string>
 #include <cmath>
-
 #include <iostream>
 
 #include "Figures.h"
@@ -33,6 +37,7 @@ void Likelihood()
 	data.close();
 }
 
+// generates a LaTeX friendly table
 std::string p_to_tex(double p)
 {
 	char tmp[100];
@@ -111,6 +116,7 @@ void SkyMap()
 
 	Progress_Bar *pbar = new Progress_Bar();
 	pbar->update(0);
+	// populates the grid
 	for (unsigned int i = 0; i < events.size(); i++)
 	{
 		coord_gal = eq_to_gal(events[i].coord_eq);
@@ -127,7 +133,7 @@ void SkyMap()
 	} // i, events
 	delete pbar;
 
-	// write grid to file
+	// writes the grid to file
 	for (int i = 0; i < N_thetas * N_phis; i++)
 	{
 		k = int(1.0 * i / (N_phis));
@@ -156,7 +162,7 @@ void MW_Visualization()
 	pbar->update(0);
 	for (int i = 0; i < N_Repeat; i++)
 	{
-		coord_c = sph_to_cart(sun_to_gal(MW_sph(false)));
+		coord_c = sph_to_cart(sun_to_gal(MW_sph(false))); // rsq = false
 		data << coord_c.x << " " << coord_c.y << " " << coord_c.z << std::endl;
 		pbar->update(0, N_Repeat, i, true);
 	} // i, N_Repeat

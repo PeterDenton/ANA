@@ -1,3 +1,8 @@
+/*
+This code is free to use, copy, distribute, and modify.
+If you use this code or any modification of this code, we request that you reference both this code zenodo.org/record/x and the paper https://arxiv.org/abs/17xx.xxxxx.
+*/
+
 #ifndef Coordinates_H
 #define Coordinates_H
 
@@ -51,7 +56,8 @@ class coord_cart
 
 };
 
-coord_cart sun_to_gal(coord_cart coord); // converts from the sun's reference frame to the galaxy's
+// converts between the sun's reference frame and the galaxy's
+coord_cart sun_to_gal(coord_cart coord);
 coord_cart gal_to_sun(coord_cart coord);
 
 coord_cart sph_to_cart(coord_sph coord);

@@ -1,9 +1,12 @@
+/*
+This code is free to use, copy, distribute, and modify.
+If you use this code or any modification of this code, we request that you reference both this code zenodo.org/record/x and the paper https://arxiv.org/abs/17xx.xxxxx.
+*/
+
 #include <gsl/gsl_roots.h>
 #include <gsl/gsl_errno.h>
 
 #include <cmath>
-
-#include <iostream>
 
 #include "vMF.h"
 #include "rng.h"
@@ -16,6 +19,7 @@ double sigma_direction_vMF_helper(double sigma_direction, void *params)
 }
 
 // alpha50 in rad
+// returns sigma
 double sigma_direction_vMF(double alpha50)
 {
 	const gsl_root_fsolver_type *T;
@@ -50,6 +54,7 @@ double kappa_vMF_helper(double kappa, void *params)
 	return 1 - kappa * pow(*sigma_direction, 2) - exp(-2 * kappa);
 }
 
+// returns kappa, the concentration
 double kappa_vMF(double sigma_direction)
 {
 	const gsl_root_fsolver_type *T;
@@ -78,6 +83,7 @@ double kappa_vMF(double sigma_direction)
 	return r;
 }
 
+// returns a random angle (costheta) distributed according to a given sigma value
 double cos_theta_vMF(double sigma_direction)
 {
 	double u;
@@ -85,9 +91,9 @@ double cos_theta_vMF(double sigma_direction)
 	return 1 + pow(sigma_direction, 2) * log(1 - u * (1 - exp(-2 / pow(sigma_direction, 2))));
 }
 
+// generates a random direction spread around a given direction, with a given sigma
 coord2D vMF_smear(coord2D coord, double sigma_direction)
 {
-	// see Berlind's makeCRmock.c
 	double stheta1, ctheta1, rangle, sr, cr, psi, cpsi, ctheta2, theta2, stheta2, cDphi, Dphi, phi2;
 	rangle = acos(cos_theta_vMF(sigma_direction));
 
@@ -118,6 +124,7 @@ coord2D vMF_smear(coord2D coord, double sigma_direction)
 	return coord2D(theta2, phi2);
 }
 
+// the pdf
 double f_vMF(double cos_theta, double kappa)
 {
 	if (kappa > 10) // for numerical stability

@@ -8,6 +8,7 @@ If you use this code or any modification of this code, we request that you refer
 #include <string>
 #include <cmath>
 #include <iostream>
+#include <algorithm>
 
 #include "Figures.h"
 #include "Likelihood.h"
@@ -57,11 +58,25 @@ std::string p_to_tex(double p)
 	return std::string(tmp);
 }
 
+std::string E_to_tex(double E)
+{
+	char tmp[100];
+	sprintf(tmp, "$%i$", (int)E);
+	return std::string(tmp);
+}
+
+bool E_sorter(ICEvent event_i, ICEvent event_j)
+{
+	return event_i.E > event_j.E;
+}
+
 void Likelihood_Table()
 {
 	std::ofstream data("data/Likelihood_Table.txt");
 
 	double Lbkg, Lastro, Lgal, Lexgal, pbkg, pastro, pgal, pexgal, sum_gal, sum_exgal, sum_bkg, hfgal;
+	std::vector<ICEvent> events_sorted = events;
+	std::sort(events_sorted.begin(), events_sorted.end(), E_sorter);
 
 	sum_gal = 0;
 	sum_exgal = 0;
@@ -71,11 +86,11 @@ void Likelihood_Table()
 
 	data << hfgal << std::endl;
 	data << std::setprecision(2);
-	for (unsigned int i = 0; i < events.size(); i++)
+	for (unsigned int i = 0; i < events_sorted.size(); i++)
 	{
-		Lbkg = L_bkg(events[i]);
-		Lastro = L_astro(events[i]);
-		Lgal = L_gal(events[i], hfgal);
+		Lbkg = L_bkg(events_sorted[i]);
+		Lastro = L_astro(events_sorted[i]);
+		Lgal = L_gal(events_sorted[i], hfgal);
 		Lexgal = L_exgal(hfgal);
 
 		pbkg = Lbkg / (Lbkg + Lastro);
@@ -87,11 +102,12 @@ void Likelihood_Table()
 		sum_exgal += pexgal;
 		sum_bkg += pbkg;
 
-		data << events[i].id << " & ";
+		data << E_to_tex(events_sorted[i].E) << " & ";
+		data << events_sorted[i].id << " & ";
 		data << p_to_tex(pgal) << " & ";
 		data << p_to_tex(pexgal) << " & ";
 		data << p_to_tex(pbkg) << "\\\\" << std::endl;
-	} // i, events
+	} // i, events_sorted
 
 	data << sum_gal << " " << sum_exgal << " " << sum_bkg << std::endl;
 	data.close();

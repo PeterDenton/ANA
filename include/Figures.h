@@ -8,11 +8,15 @@ If you use this code or any modification of this code, we request that you refer
 
 #include <string>
 
+class ICEvent;
+
 // likelihood scan over f_gal
 void Likelihood();
 
 // generates a LaTeX friendly table
 std::string p_to_tex(double p);
+std::string E_to_tex(double E);
+bool E_sorter(ICEvent event_i, ICEvent event_j);
 void Likelihood_Table();
 
 // visualizations

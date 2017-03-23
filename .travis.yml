@@ -4,6 +4,7 @@ language: cpp
 env:
   global:
     - IsTravis=1
+    - MAKEFLAGS="-j 2"
 
 os:
   - linux

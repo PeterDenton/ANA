@@ -30,4 +30,4 @@ The IceCube events are read in and managed in [*src/ICEvent.cpp*](src/ICEvent.cp
 If you have questions or encounter any problems when running *ANA*, please use github's [issue tracker](https://github.com/PeterDenton/ANA/issues).
 
 This code is free to use, copy, distribute, and modify.
-If you use this code or any modification of this code, we request that you reference both this code [DOI:10.5281/zenodo.x](zenodo.org/record/x) and the paper [arXiv:17xx.xxxxx](https://arxiv.org/abs/17xx.xxxxx).
+If you use this code or any modification of this code, we request that you reference both this code [DOI:10.5281/zenodo.x](https://zenodo.org/record/x) and the paper [arXiv:17xx.xxxxx](https://arxiv.org/abs/17xx.xxxxx).

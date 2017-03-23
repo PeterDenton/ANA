@@ -24,6 +24,8 @@ The IceCube events are read in and managed in [*src/ICEvent.cpp*](src/ICEvent.cp
 
 1. To turn off the progress bar on the slower functions, uncomment the `Progress_Bar_visible = false;` line in [*src/main.cpp*](src/main.cpp).
 
+1. To turn on a broken power law, change `Phi_astro` in [*src/Backgrounds.cpp*](src/Backgrounds.cpp) and modify `Phi_astro2` as necessary.
+
 ## Support
 If you have questions or encounter any problems when running *ANA*, please use github's [issue tracker](https://github.com/PeterDenton/ANA/issues).
 

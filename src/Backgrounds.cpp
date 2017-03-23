@@ -73,7 +73,45 @@ double Phi_bkg(ICEvent event)
 
 double Phi_astro(ICEvent event)
 {
+	// Phi_astro1 is the unbroken power law
+	// Phi_astro2 is the broken power law
+	return Phi_astro1(event);
+}
+
+double Phi_astro1(ICEvent event)
+{
 	return ((Gamma_astro - 1) / ICEmin) * pow(event.Edep / ICEmin, -Gamma_astro);
+}
+
+double Phi_astro2(ICEvent event)
+{
+	// see eq 27 from 1611.07905 (and eq 12)
+	// the fit for eq 27 uses the glashow, showers, and tracks
+	// E0 is from after eq 7
+	double gamma1, gamma2, s, E0, N, Ninv;
+/*
+	// eq 14
+	gamma1 = 3.63;
+	gamma2 = 2.43;
+	s = 0.0827;
+
+	// eq 19
+	gamma1 = 3.47;
+	gamma2 = 2.62;
+	s = 0.17;
+*/
+	// eq 27
+	gamma1 = 3.5;
+	gamma2 = 2.3;
+	s = 0.04;
+
+	E0 = 33.11;
+
+	// normalization
+	Ninv = ICEmin * (pow(ICEmin / E0, -gamma1) / (gamma1 - 1) + s * pow(ICEmin / E0, -gamma2) / (gamma2 - 1));
+	N = 1. / Ninv;
+
+	return N * (pow(event.E / E0, -gamma1) + s * pow(event.E / E0, -gamma2));
 }
 
 double L_bkg(ICEvent event)

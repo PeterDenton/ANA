@@ -20,8 +20,8 @@ bool E_sorter(ICEvent event_i, ICEvent event_j);
 void Likelihood_Table();
 
 // visualizations
-void SkyMap();
-void MW_Visualization();
+void IC_SkyMap();
+void MW_SkyMap();
 
 // testing
 void vMF_test();

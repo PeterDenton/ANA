@@ -113,11 +113,11 @@ void Likelihood_Table()
 	data.close();
 }
 
-void SkyMap()
+void IC_SkyMap()
 {
-	std::cout << "Generating SkyMap..." << std::endl;
+	std::cout << "Generating IC SkyMap..." << std::endl;
 
-	std::ofstream data("data/SkyMap.txt");
+	std::ofstream data("data/IC_SkyMap.txt");
 	coord2D coord_gal, coord_gal_smeared;
 
 	int k, l; // indices for the grid
@@ -129,6 +129,7 @@ void SkyMap()
 	data << N_thetas << " " << N_phis << " " << N_Repeat << std::endl;
 
 	int *grid = new int[N_thetas * N_phis];
+	for (int i = 0; i < N_thetas * N_phis; i++) grid[i] = 0; // initialize the grid to zero
 
 	Progress_Bar *pbar = new Progress_Bar();
 	pbar->update(0);
@@ -139,8 +140,8 @@ void SkyMap()
 		for (int j = 0; j < N_Repeat; j++)
 		{
 			coord_gal_smeared = vMF_smear(coord_gal, events[i].sigma_direction);
-			k = (N_thetas - 1) * fmod(coord_gal_smeared.theta, M_PI) / M_PI;
-			l = (N_phis - 1) * fmod(11 * M_PI + coord_gal_smeared.phi, 2 * M_PI) / (2 * M_PI);
+			k = N_thetas * fmod(coord_gal_smeared.theta, M_PI) / M_PI;
+			l = N_phis * fmod(11 * M_PI + coord_gal_smeared.phi, 2 * M_PI) / (2 * M_PI);
 			grid[k * N_phis + l]++;
 
 			if (j % 10000 == 0)
@@ -153,11 +154,8 @@ void SkyMap()
 	for (int i = 0; i < N_thetas * N_phis; i++)
 	{
 		k = int(1.0 * i / (N_phis));
-		theta = M_PI * k / (N_phis - 1);
-		if (k == 0 or k == N_phis - 1)
-			data << log(grid[i] / N_Repeat) << std::endl;
-		else
-			data << log(grid[i] / sin(theta) / N_Repeat) << std::endl;
+		theta = M_PI * (k + 0.5) / N_phis;
+		data << log(grid[i] / sin(theta) / N_Repeat) << std::endl;
 	}
 	data.close();
 
@@ -166,9 +164,56 @@ void SkyMap()
 	std::cout << "Done." << std::endl;
 }
 
-void MW_Visualization()
+void MW_SkyMap()
 {
-	std::ofstream data("data/MW_Visualization.txt");
+	std::cout << "Generating MW SkyMap..." << std::endl;
+
+	std::ofstream data("data/MW_SkyMap.txt");
+	coord2D coord_gal;
+
+	int k, l; // indices for the grid
+	const int N_thetas = 5e2;
+	const int N_phis = 5e2;
+	int N_Repeat = 1e9;
+	double theta;
+
+	data << N_thetas << " " << N_phis << " " << N_Repeat << std::endl;
+
+	int *grid = new int[N_thetas * N_phis];
+	for (int i = 0; i < N_thetas * N_phis; i++) grid[i] = 0; // initialize the grid to zero
+
+	Progress_Bar *pbar = new Progress_Bar();
+	pbar->update(0);
+	// populates the grid
+	for (int i = 0; i < N_Repeat; i++)
+	{
+		coord_gal = MW();
+		k = N_thetas * (fmod(coord_gal.theta, M_PI) / M_PI);
+		l = N_phis * (fmod(11 * M_PI + coord_gal.phi, 2 * M_PI) / (2 * M_PI));
+		grid[k * N_phis + l]++;
+
+		if (i % 10000 == 0)
+			pbar->update(0, N_Repeat, i, true);
+	} // i, N_Repeat
+	delete pbar;
+
+	// writes the grid to file
+	for (int i = 0; i < N_thetas * N_phis; i++)
+	{
+		k = int(1.0 * i / (N_phis));
+		theta = M_PI * (k + 0.5) / N_phis;
+		data << log(grid[i] / sin(theta) / N_Repeat) << std::endl;
+	}
+	data.close();
+
+	delete[] grid;
+
+	std::cout << "Done." << std::endl;
+}
+
+void MW_SkyMap_old()
+{
+	std::ofstream data("data/MW_SkyMap.txt");
 	int N_Repeat;
 	coord_cart coord_c;
 	N_Repeat = 1e7;

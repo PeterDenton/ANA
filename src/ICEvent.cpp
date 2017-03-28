@@ -4,7 +4,6 @@ If you use this code or any modification of this code, we request that you refer
 */
 
 #include <cmath>
-#include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>

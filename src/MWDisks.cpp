@@ -11,7 +11,6 @@ If you use this code or any modification of this code, we request that you refer
 #include "Coordinates.h"
 #include "rng.h"
 
-// soft disk model
 // initialize the MCMC points
 MCMC_point::MCMC_point(double x, double y, double z, int section)
 : x(x), y(y), z(z), section(section)

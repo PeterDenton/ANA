@@ -26,6 +26,7 @@ int main()
 	Likelihood_Table();
 //	IC_SkyMap();
 //	MW_SkyMap();
+//	MW_Visualization();
 	vMF_test();
 
 	return 0;

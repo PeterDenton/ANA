@@ -22,6 +22,7 @@ void Likelihood_Table();
 // visualizations
 void IC_SkyMap();
 void MW_SkyMap();
+void MW_Visualization();
 
 // testing
 void vMF_test();

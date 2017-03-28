@@ -10,7 +10,6 @@ If you use this code or any modification of this code, we request that you refer
 #include <string>
 #include <sstream>
 #include <fstream>
-
 #include <iostream>
 
 #include "Likelihood.h"

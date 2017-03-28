@@ -211,12 +211,12 @@ void MW_SkyMap()
 	std::cout << "Done." << std::endl;
 }
 
-void MW_SkyMap_old()
+void MW_Visualization()
 {
-	std::ofstream data("data/MW_SkyMap.txt");
+	std::ofstream data("data/MW_Visualization.txt");
 	int N_Repeat;
 	coord_cart coord_c;
-	N_Repeat = 1e7;
+	N_Repeat = 1e6;
 
 	Progress_Bar *pbar = new Progress_Bar();
 

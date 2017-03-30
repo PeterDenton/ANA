@@ -41,4 +41,4 @@ pip install astropoy
 If you have questions or encounter any problems when running *ANA*, please use github's [issue tracker](https://github.com/PeterDenton/ANA/issues).
 
 This code is free to use, copy, distribute, and modify.
-If you use this code or any modification of this code, we request that you reference both this code [DOI:10.5281/zenodo.438675](https://zenodo.org/record/438675) and the paper [arXiv:17xx.xxxxx](https://arxiv.org/abs/17xx.xxxxx).
+If you use this code or any modification of this code, we request that you reference both this code [DOI:10.5281/zenodo.438675](https://zenodo.org/record/438675) and the paper [arXiv:1703.09721](https://arxiv.org/abs/1703.09721).

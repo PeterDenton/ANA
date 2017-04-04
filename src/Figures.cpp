@@ -109,6 +109,7 @@ void Likelihood_Table()
 		data << p_to_tex(pbkg) << "\\\\" << std::endl;
 	} // i, events_sorted
 
+	data << std::setprecision(5);
 	data << sum_gal << " " << sum_exgal << " " << sum_bkg << std::endl;
 	data.close();
 }

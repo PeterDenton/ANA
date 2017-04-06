@@ -4,6 +4,7 @@ If you use this code or any modification of this code, we request that you refer
 */
 
 #include <gsl/gsl_min.h>
+#include <gsl/gsl_roots.h>
 #include <gsl/gsl_errno.h>
 
 #include <cmath>
@@ -33,7 +34,7 @@ void calc_L_gals()
 	double L;
 	bool HE_Cut;
 
-	HE_Cut = false; // a cut on galactic energy at 900 TeV
+	HE_Cut = false; // a cut on galactic energy at 900 TeV. Default: false
 	N_Repeat = 1e6;
 
 	Progress_Bar *pbar = new Progress_Bar();
@@ -96,7 +97,11 @@ double L_exgal(double f_gal)
 
 double L(ICEvent event, double f_gal)
 {
-	return (L_gal(event, f_gal) + L_exgal(f_gal)) * L_astro(event) + L_bkg(event);
+	double l;
+	l = (L_gal(event, f_gal) + L_exgal(f_gal)) * L_astro(event) + L_bkg(event);
+	if (l == 0)
+		return 1e-50;
+	return l;
 }
 
 double logL(double f_gal)
@@ -112,26 +117,44 @@ double logL(double f_gal)
 	return logL;
 }
 
-// for the minimizer
-double minus_logL(double f_gal, void *params)
+// for the minimizer/root finder
+double sigma_minus_2logL(double f_gal, void *params)
 {
-	return -logL(f_gal);
+	double *p = (double *)params;
+	double sigma, logL_hfgal;
+
+	sigma = p[0];
+	logL_hfgal = p[1];
+
+	return -pow(sigma, 2) - 2 * (logL(f_gal) - logL_hfgal);
 }
 
 // finds the best fit f_gal
 double hat_f_gal()
 {
 	int status;
-	double minimum;
+	double minimum, init, F_min, F_init, F_max;
 	const gsl_min_fminimizer_type *T;
 	gsl_min_fminimizer *s;
 	gsl_function F;
+	double params[2] = {0, 0};
 
-	F.function = &minus_logL;
-	T = gsl_min_fminimizer_goldensection;
+	init = 0.1;
+
+	// check that there is a minimum near init
+	F_min = sigma_minus_2logL(0, params);
+	F_init = sigma_minus_2logL(init, params);
+	F_max = sigma_minus_2logL(1, params);
+	if (F_min < F_init and F_init < F_max)	return 0;
+	if (F_min > F_init and F_init > F_max)	return 1;
+
+	F.function = &sigma_minus_2logL;
+	F.params = params;
+
+	T = gsl_min_fminimizer_brent;
 	s = gsl_min_fminimizer_alloc(T);
 
-	gsl_min_fminimizer_set(s, &F, 0.1, 0, 1.);
+	gsl_min_fminimizer_set(s, &F, init, 0, 1.);
 
 	status = GSL_CONTINUE;
 	while (status == GSL_CONTINUE)
@@ -143,5 +166,50 @@ double hat_f_gal()
 
 	gsl_min_fminimizer_free(s);
 	return minimum;
+}
+
+double sigma_to_f_gal(double sigma, bool lower)
+{
+	int status;
+	double f_gal, hfgal, min, max;
+	const gsl_root_fsolver_type *T;
+	gsl_root_fsolver *s;
+	gsl_function F;
+	hfgal = hat_f_gal();
+	double params[2] = {sigma, logL(hfgal)};
+
+	if (lower)
+	{
+		min = 0;
+		max = hfgal;
+	}
+	else
+	{
+		min = hfgal;
+		max = 1;
+	}
+
+	// if they have the same sign:
+	if (sigma_minus_2logL(min, params) * sigma_minus_2logL(max, params) > 0)
+		return -1;
+
+	F.function = &sigma_minus_2logL;
+	F.params = params;
+	T = gsl_root_fsolver_brent;
+	s = gsl_root_fsolver_alloc(T);
+
+	gsl_root_fsolver_set(s, &F, min, max);
+
+	status = GSL_CONTINUE;
+	while (status == GSL_CONTINUE)
+	{
+		gsl_root_fsolver_iterate(s);
+		status = gsl_root_test_interval(gsl_root_fsolver_x_lower(s), gsl_root_fsolver_x_upper(s), 1e-5, 0);
+	} // while continuing
+	f_gal = gsl_root_fsolver_root(s);
+
+	gsl_root_fsolver_free(s);
+
+	return f_gal;
 }
 

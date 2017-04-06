@@ -20,8 +20,6 @@ The IceCube events are read in and managed in [*src/ICEvent.cpp*](src/ICEvent.cp
 
 1. The high energy cut on the galactic component mentioned in the paper can be turned on with the bool flag in `calc_L_gals()`.
 
-1. The confidence intervals are calculated in [*py/Likelihood.py*](py/Likelihood.py). Plotting can be turned off by uncommenting `exit()` halfway through that script.
-
 1. To turn off the progress bar on the slower functions, uncomment the `Progress_Bar_visible = false;` line in [*src/main.cpp*](src/main.cpp).
 
 1. To turn on a broken power law, change `Phi_astro` in [*src/Backgrounds.cpp*](src/Backgrounds.cpp) and modify `Phi_astro2` as necessary.

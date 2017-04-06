@@ -18,9 +18,11 @@ double L_exgal(double f_gal);
 double L(ICEvent event, double f_gal);
 double logL(double f_gal);
 
-// for the minimizer
-double minus_logL(double f_gal);
+// for the minimizer/root finder
+double sigma_minus_2logL(double f_gal, void *params);
 // finds the best fit f_gal
 double hat_f_gal();
+// finds the f_gals for a given sigma, lower => starting at f_gal=0 or at f_gal=1
+double sigma_to_f_gal(double sigma, bool lower);
 
 #endif

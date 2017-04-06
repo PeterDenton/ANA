@@ -23,13 +23,13 @@ ICEvent::ICEvent(int id_, double Edep_, double Em_, double Ep_, double time_, do
 	Edep = Edep_;
 	Em = Em_;
 	Ep = Ep_;
+	is_shower = is_shower_; // true if is shower, false if is track
 	E = (is_shower) ? Edep : Edep2Enu(Edep);
 	time = time_; // MJD
 	coord_eq = coord2D((90 - dec_) * M_PI / 180., RA_ * M_PI / 180);
 	alpha50 = alpha50_; // degress
 	sigma_direction = sigma_direction_vMF(alpha50 * M_PI / 180); // sigma_direction_vMF takes radians
 	kappa = kappa_vMF(sigma_direction);
-	is_shower = is_shower_; // true if is shower, false if is track
 }
 
 std::vector<ICEvent> read_IC(int n, std::string fname)
@@ -55,9 +55,9 @@ std::vector<ICEvent> read_IC(int n, std::string fname)
 		is_shower = (shower_track[0] == 'S');
 		if (Edep >= ICEmin)
 		{
-// source all events at the GC
-// dec = -29.0078;
-// RA = 266.4167;
+			// source all events at the GC for testing
+			// dec = -29.0078;
+			// RA = 266.4167;
 			IC_data.push_back(ICEvent(id, Edep, Em, Ep, time, dec, RA, angular_resolution, is_shower));
 		}
 	}

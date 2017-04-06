@@ -258,3 +258,38 @@ void vMF_test()
 	std::cout << "Should be 0.5: " << 1.0 * rangle_count / N_Repeat << std::endl;
 }
 
+void Likelihood_CLs_Table()
+{
+	std::ofstream data("data/Likelihood_CLs_Table.txt");
+
+	data << Likelihood_CLs(1) << std::endl;
+	data << Likelihood_CLs(1.6462, "90\\%") << std::endl;
+	data << Likelihood_CLs(1.9596, "95\\%") << std::endl;
+	data << Likelihood_CLs(2) << std::endl;
+	data << Likelihood_CLs(3) << std::endl;
+	data << Likelihood_CLs(4) << std::endl;
+	data << Likelihood_CLs(5) << std::endl;
+
+	data.close();
+}
+
+std::string Likelihood_CLs(int sigma)
+{
+	return Likelihood_CLs(sigma, std::to_string(sigma) + "\\sigma");
+}
+
+std::string Likelihood_CLs(double sigma, std::string name)
+{
+	double min, max;
+	char tmp[100];
+
+	min = sigma_to_f_gal(sigma, true);
+	max = sigma_to_f_gal(sigma, false);
+
+	if (min == -1)
+		sprintf(tmp, "$%s$ & $<%.2g$\\\\", name.c_str(), max);
+	else
+		sprintf(tmp, "$%s$ & $[%.2g,%.2g]$\\\\", name.c_str(), min, max);
+	return tmp;
+}
+

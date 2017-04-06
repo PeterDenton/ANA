@@ -27,4 +27,9 @@ void MW_Visualization();
 // testing
 void vMF_test();
 
+// generates a LaTeX friendly CL table
+void Likelihood_CLs_Table();
+std::string Likelihood_CLs(int sigma);
+std::string Likelihood_CLs(double sigma, std::string name);
+
 #endif

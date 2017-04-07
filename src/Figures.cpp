@@ -264,7 +264,6 @@ void Likelihood_CLs_Table()
 
 	data << Likelihood_CLs(1) << std::endl;
 	data << Likelihood_CLs(1.6462, "90\\%") << std::endl;
-	data << Likelihood_CLs(1.9596, "95\\%") << std::endl;
 	data << Likelihood_CLs(2) << std::endl;
 	data << Likelihood_CLs(3) << std::endl;
 	data << Likelihood_CLs(4) << std::endl;
